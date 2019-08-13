@@ -11,4 +11,40 @@ CREATE TABLE Usuarios (
 	Email VARCHAR(255) UNIQUE NOT NULL,
 	Senha VARCHAR(28) NOT NULL
 );
+CREATE TABLE FotosUsuarios (
+	IdUsuario INT FOREIGN KEY REFERENCES Usuarios(IdUsuario) NOT NULL,
+	Imagem VARBINARY(MAX) 
+);
+CREATE TABLE Categorias(
+	IdCategoria INT PRIMARY KEY IDENTITY NOT NULL,
+	Nome TEXT NOT NULL,
+	Descricao TEXT NOT NULL
+);
+CREATE TABLE UsuariosCategorias(
+	IdUsuario INT FOREIGN KEY REFERENCES Usuarios(IdUsuario) NOT NULL,
+	IdCategoria INT FOREIGN KEY REFERENCES Categorias(IdCategoria)
+);
+CREATE TABLE Plataformas(
+	IdPlataforma INT PRIMARY KEY IDENTITY NOT NULL,
+	Nome VARCHAR(255) NOT NULL UNIQUE
+);
+CREATE TABLE FormatosLancamentos(
+	IdFormatoLancamento INT PRIMARY KEY IDENTITY NOT NULL,
+	Nome VARCHAR(255) NOT NULL
+);
+CREATE TABLE Lancamentos(
+	IdLancamento INT PRIMARY KEY IDENTITY NOT NULL,
+	Titulo VARCHAR(255) NOT NULL,
+	Sinopse TEXT,
+	Categoria INT NOT NULL FOREIGN KEY REFERENCES Categorias(IdCategoria),
+	Duracao SMALLINT NOT NULL,
+	Formato INT FOREIGN KEY REFERENCES FormatosLancamentos(IdFormatoLancamento),
+	Estreia DATE NOT NULL,
+	QtdEpisodios INT DEFAULT 1 NOT NULL,
+	Plataforma INT FOREIGN KEY REFERENCES Plataformas(IdPlataforma)
+);
+CREATE TABLE LancamentosUsuarios(
+	IdUsuario INT FOREIGN KEY REFERENCES Usuarios(IdUsuario) NOT NULL,
+	IdLancamento INT FOREIGN KEY REFERENCES Lancamentos(IdLancamento)
+);
 --O HENRIQUE DO PASSADO NÃO RODOU NENHUM DESSES COMANDOS AINDA
