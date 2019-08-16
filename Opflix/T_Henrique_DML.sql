@@ -27,7 +27,7 @@ EXECUTE CadastrarCategoria @IdAdmin = 2 , @Nome = 'Ficção Científica' , @Descric
 
 EXECUTE CadastrarLancamento @IdAdmin = 2 , @Titulo = 'Deuses Americanos' , @Sinopse = 'Até os deuses precisam ser americanos' , @Categoria = 5 , @Duracao = 999 , @Formato = 
 
-SELECT * FROM FormatosLancamentos
+SELECT * FROM FormatosLancamentos;
 EXECUTE CadastrarPlataforma @IdAdmin = 2 , @Nome = 'Netflix';
 EXECUTE CadastrarPlataforma @IdAdmin = 2 , @Nome = 'Amazon';
 EXECUTE CadastrarPlataforma @IdAdmin = 2 , @Nome = 'VHS';
