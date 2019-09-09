@@ -1,12 +1,9 @@
 CREATE DATABASE T_Opflix;
 USE T_Opflix;
-CREATE TABLE PerfisUsuarios (
-	IdPerfil INT PRIMARY KEY IDENTITY NOT NULL,
-	Tipo VARCHAR(15) NOT NULL UNIQUE
-);
+
 CREATE TABLE Usuarios (
 	IdUsuario INT PRIMARY KEY IDENTITY NOT NULL,
-	Tipo INT FOREIGN KEY REFERENCES PerfisUsuarios(IdPerfil) NOT NULL,
+	Tipo VARCHAR(13) NOT NULL,
 	Nome TEXT NOT NULL,
 	Email VARCHAR(255) UNIQUE NOT NULL,
 	Senha VARCHAR(28) NOT NULL
@@ -61,9 +58,9 @@ END
 -- 1.	O administrador poderá cadastrar qualquer tipo de usuário (administrador ou cliente);
 GO
 CREATE PROCEDURE InserirUsuario
-@IdAdmin INT , @Tipo INT , @Nome TEXT , @Email VARCHAR(255) , @Senha VARCHAR(28)
+@IdAdmin INT , @Tipo VARCHAR(13) , @Nome TEXT , @Email VARCHAR(255) , @Senha VARCHAR(28)
 AS BEGIN
-DECLARE @Adm INT
+DECLARE @Adm VARCHAR(13) = 'ADMINISTRADOR'
 SELECT @Adm=Tipo FROM Usuarios WHERE Usuarios.IdUsuario = @IdAdmin;
 IF @IdAdmin = 2
 INSERT INTO Usuarios (Tipo , Nome , Email , Senha) VALUES (@Tipo , @Nome , @Email , @Senha)
@@ -155,7 +152,7 @@ GO
 CREATE PROCEDURE CadastrarPlataforma
 @IdAdmin INT , @Nome VARCHAR(255)
 AS BEGIN
-DECLARE @Adm INT
+DECLARE @Adm VARCHAR(13)
 SELECT @Adm=Tipo FROM Usuarios WHERE Usuarios.IdUsuario = @IdAdmin;
 IF @IdAdmin = 2
 INSERT INTO Plataformas(Nome) VALUES (@Nome);
